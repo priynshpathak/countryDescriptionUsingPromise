@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        function selectId(id) {
+            return document.getElementById(id);
+        }
+
+        var url = "https://restcountries.eu/rest/v2/all";
+
+        fetch(url).then((value) => {
+            return value.json();
+        }).then((result) => {
+            console.log(result);
+
+            result.forEach(element => {
+
+                let card = document.createElement('div');
+                card.classList.add("card");
+                card.style.width = "14rem";
+                card.style.marginBottom = "10px";
+
+                let cardImageRow = document.createElement('div');
+                card.classList.add("row");
+
+                let cardDetailRow = document.createElement('div');
+                card.classList.add("row");
+               
+                
+
+                let cardHeader = document.createElement('div');
+                cardHeader.classList.add("card-header");
+                cardHeader.textContent = element.name;
+
+                let ImageCol = document.createElement('div');
+                ImageCol.classList.add("col");
+
+                let flagImage = document.createElement('img');
+                flagImage.setAttribute("src", element.flag);
+                flagImage.setAttribute("alt", element.name);
+                flagImage.classList.add("card-img-top");
+                // flagImage.setAttribute("width", "100%");
+                 //flagImage.setAttribute("max-height", "40%");
+
+                //ImageCol.appendChild(flagImage);
+
+                cardImageRow.appendChild(flagImage);
+
+                let cardBody = document.createElement('div');
+                cardBody.classList.add("card-body");
+
+                let cardBodyCol1 = document.createElement('div');
+                cardBodyCol1.classList.add("col");
+
+                let cardBodyCol2 = document.createElement('div');
+                cardBodyCol2.classList.add("col");
+
+                let labelCapital = document.createElement('label');
+                labelCapital.setAttribute("for", "");
+                labelCapital.innerHTML = "Capital : ";
+                let capitalSpan = document.createElement('span');
+                capitalSpan.innerHTML = element.capital;
+
+                let labelRegion = document.createElement('label');
+                labelRegion.setAttribute("for", "");
+                labelRegion.innerHTML = "Region : ";
+                let regionSpan = document.createElement('span');
+                regionSpan.innerHTML = element.region;
+
+                labelRegion.appendChild(regionSpan);
+
+                labelCapital.appendChild(capitalSpan);
+
+                cardBodyCol1.appendChild(labelCapital);
+                cardBodyCol2.appendChild(labelRegion);
+
+                cardBody.append(cardBodyCol1, cardBodyCol2);
+                cardDetailRow.appendChild(cardBody);
+
+                card.append(cardHeader, cardImageRow, cardDetailRow);
+
+                selectId("card-inner-container").appendChild(card);
+
+
+            });
+
+
+
+
+
+
+        }).catch((error) => {
+            console.log("error");
+        });
+
+
+
+
+
+    </script>
+
+     <div class="container">
+        <div id="card-inner-container" class="justify-content-between row justify-content-center" style="margin-top: 20px;">
+
+       </div>
+    </div>
+
+</body>
+
+</html>
